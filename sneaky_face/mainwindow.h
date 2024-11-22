@@ -16,9 +16,12 @@ public:
 
 private slots:
     void openVideo();
+    void openProcessor();
 
 private:
     Ui::MainWindow *ui;
 };
+
+void processVideo(QString filePath);
 
 #endif // MAINWINDOW_H
