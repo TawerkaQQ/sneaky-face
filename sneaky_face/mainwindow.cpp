@@ -23,10 +23,11 @@ void MainWindow::openVideo() {
     QString filePath = QFileDialog::getOpenFileName(this, "Выберите видео", "", "Video Files (*.mp4 *.avi *.mkv)");
 
     if (!filePath.isEmpty()) {
-        qDebug() << "Выбран файл:" << filePath;
+        qDebug() << "выбран файл:" << filePath;
         VideoWindow *videoWindow = new VideoWindow(filePath, this);
         videoWindow->show();
+        ui->pushButton->hide();
     } else {
-        qDebug() << "Файл не выбран";
+        qDebug() << "файл не выбран";
     }
 }
