@@ -1,0 +1,10 @@
+^C:\USERS\DEATHOFGLORY\DESKTOP\SNEAKY-FACE\BUILD\CMAKEFILES\82E18F3805228DB3B3E5AB3D83CC37A0\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/DeathOfGlory/Desktop/sneaky-face -BC:/Users/DeathOfGlory/Desktop/sneaky-face/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/DeathOfGlory/Desktop/sneaky-face/build/sneaky_face.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

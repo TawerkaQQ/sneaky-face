@@ -1,0 +1,3 @@
+C:/Users/DeathOfGlory/Desktop/sneaky-face/build/CMakeFiles/sneaky_face.dir
+C:/Users/DeathOfGlory/Desktop/sneaky-face/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/DeathOfGlory/Desktop/sneaky-face/build/CMakeFiles/ZERO_CHECK.dir
