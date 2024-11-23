@@ -36,6 +36,7 @@ public:
     QLabel *label_3;
     QProgressBar *progressBar;
     QPushButton *pushButton2;
+    QPushButton *pushButton_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -75,6 +76,9 @@ public:
         pushButton2 = new QPushButton(centralwidget);
         pushButton2->setObjectName(QString::fromUtf8("pushButton2"));
         pushButton2->setGeometry(QRect(20, 210, 171, 131));
+        pushButton_2 = new QPushButton(centralwidget);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setGeometry(QRect(520, 330, 161, 151));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -97,6 +101,7 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "\320\234\320\276\320\264\320\265\320\273\321\214", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "\320\240\320\260\320\267\320\274\321\213\321\202\320\270\320\265", nullptr));
         pushButton2->setText(QCoreApplication::translate("MainWindow", "WATCH_VIDEO", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MainWindow", "RTP", nullptr));
     } // retranslateUi
 
 };

@@ -21,6 +21,6 @@ vector<string> getModelName();
 
 int process_video(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, int blur_rate, int& progress_bar);
 
-int process_rtp(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, int blur_rate, int& progress_bar); 
+int process_rtp(string model_path, string path_to_save, vector<string> class_nums, int blur_rate);
 
 #endif // FACE_DETECT_H

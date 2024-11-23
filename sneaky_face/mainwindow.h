@@ -23,6 +23,7 @@ public:
 private slots:
     void processVideoButton();
     void openVideoWindow();
+    void processRTPVideoButton();
 
 private:
     Ui::MainWindow *ui;
