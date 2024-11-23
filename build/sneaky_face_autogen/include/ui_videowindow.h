@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'videowindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -58,11 +58,11 @@ public:
 
     void retranslateUi(QWidget *VideoWindow)
     {
-        VideoWindow->setWindowTitle(QApplication::translate("VideoWindow", "Form", nullptr));
-        backButton->setText(QApplication::translate("VideoWindow", "\320\235\320\260\320\267\320\260\320\264", nullptr));
-        playButton->setText(QApplication::translate("VideoWindow", "play", nullptr));
-        pauseButton->setText(QApplication::translate("VideoWindow", "pause", nullptr));
-        openButton->setText(QApplication::translate("VideoWindow", "open video", nullptr));
+        VideoWindow->setWindowTitle(QCoreApplication::translate("VideoWindow", "Form", nullptr));
+        backButton->setText(QCoreApplication::translate("VideoWindow", "\320\235\320\260\320\267\320\260\320\264", nullptr));
+        playButton->setText(QCoreApplication::translate("VideoWindow", "play", nullptr));
+        pauseButton->setText(QCoreApplication::translate("VideoWindow", "pause", nullptr));
+        openButton->setText(QCoreApplication::translate("VideoWindow", "open video", nullptr));
     } // retranslateUi
 
 };
