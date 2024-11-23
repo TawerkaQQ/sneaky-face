@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {
     delete ui;
-    delete videoWindow;  // Ensure videoWindow is deleted
+    delete videoWindow;
 }
 
 void MainWindow::processVideoButton() {
