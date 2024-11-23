@@ -1,0 +1,4 @@
+/home/gekcer/git/sneaky-face/build/CMakeFiles/rebuild_cache.dir
+/home/gekcer/git/sneaky-face/build/CMakeFiles/edit_cache.dir
+/home/gekcer/git/sneaky-face/build/CMakeFiles/sneaky_face.dir
+/home/gekcer/git/sneaky-face/build/CMakeFiles/sneaky_face_autogen.dir
