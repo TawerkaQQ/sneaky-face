@@ -8,17 +8,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Find Qt5 components
 find_package(Qt5 COMPONENTS Widgets Multimedia MultimediaWidgets REQUIRED)
 
-# Find OpenCV
+set(OpenCV_DIR "/usr/include/opencv4/")
 find_package(OpenCV REQUIRED)
 
-# Set ONNX Runtime directory
-set(ONNXRUNTIME_DIR "/usr/local/onnxruntime/")
+set(ONNXRUNTIME_DIR "/opt/onnxruntime/")
 
-# Include ONNX Runtime headers
-include_directories(${ONNXRUNTIME_DIR}/include)
-
-# Find ONNX Runtime library
 find_library(ONNXRUNTIME_LIB onnxruntime HINTS ${ONNXRUNTIME_DIR}/lib)
+
+
+include_directories(${ONNXRUNTIME_DIR}/include)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+link_libraries(${OpenCV_LIBRARIES} ${ONNXRUNTIME_LIB})
 
 # Enable automatic MOC and UIC
 set(CMAKE_AUTOMOC ON)

@@ -12,11 +12,15 @@
 #include <iostream>
 #include <stdio.h>
 
+using namespace std;
+
 extern const char *class_names[];
 
-std::vector<std::string> getClassName();
-std::vector<std::string> getModelName();
+vector<string> getClassName();
+vector<string> getModelName();
 
-int process(std::string model_path, std::string path_to_video, std::string path_to_save, std::vector<std::string> class_nums, std::vector<int> blur_rate);
+int process_video(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, int blur_rate, int& progress_bar);
+
+int process_rtp(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, int blur_rate, int& progress_bar); 
 
 #endif // FACE_DETECT_H

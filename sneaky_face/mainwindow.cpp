@@ -2,6 +2,10 @@
 #include "ui_mainwindow.h"
 #include "face_detect.h"
 #include <QDebug>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -88,7 +92,16 @@ void MainWindow::processVideoButton() {
     classesVector.push_back(className.toStdString());
     blurVector.push_back(blurRate);
 
-    bool success = process(modelName.toStdString(), videoFile.toStdString(), outputFilePath.toStdString(), classesVector, blurVector);
+
+    // success = process(modelName.toStdString(), videoFile.toStdString(), outputFilePath.toStdString(), classesVector, blurVector);
+
+    string model_path = "../models/yolov10n-face.onnx";
+    vector<string> class_nums = {"face", "bicycle","car", "motorcycle", "airplane", "bus", "train"};
+
+    int blur_rate = 30;
+    int progress_bar = 0;
+
+    process_video(model_path, videoFile.toStdString(), outputFilePath.toStdString(), class_nums, blur_rate, progress_bar);
 }
 
 void MainWindow::openVideoWindow() {
