@@ -147,14 +147,17 @@ int process_video(string model_path, string path_to_video, string path_to_save, 
                         auto name = string(class_names[c]) + ":" + to_string(data[4]);
                         if (data[4] > 0.15) {
                             Rect roi(x, y, x_max - x, y_max - y);
+            
                             roi = roi & Rect(0, 0, frame.cols, frame.rows);
                             
                             if (roi.width > 0 && roi.height > 0) {
+
                                 Mat roi_img = frame(roi);
                                 
                                 Mat blurred;
                                 GaussianBlur(roi_img, blurred, Size(45, 45), blur_rate);
                                 
+
                                 blurred.copyTo(frame(roi));
                             }
                         } 
@@ -192,7 +195,7 @@ int process_video(string model_path, string path_to_video, string path_to_save, 
 }
 
 
-int process_rtp(string model_path, string path_to_save, vector<string> class_nums, int blur_rate);
+int process_rtp(string model_path, string path_to_save, vector<string> class_nums, int blur_rate) {
 
     Mat frame;
     VideoCapture cap;
