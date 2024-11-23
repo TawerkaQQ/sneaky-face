@@ -1,5 +1,5 @@
 const char *class_names[] = {
-    "person",         "bicycle",    "car",           "motorcycle",    "airplane",     "bus",           "train",
+    "face",         "bicycle",    "car",           "motorcycle",    "airplane",     "bus",           "train",
     "truck",          "boat",       "traffic light", "fire hydrant",  "stop sign",    "parking meter", "bench",
     "bird",           "cat",        "dog",           "horse",         "sheep",        "cow",           "elephant",
     "bear",           "zebra",      "giraffe",       "backpack",      "umbrella",     "handbag",       "tie",
@@ -43,7 +43,7 @@ int main(int, char**)
     Array input_data(640 * 640 * 3);  // Пример: массив для 640x640 RGB изображения
     Shape input_shape = {1, 3, 640, 640}; // Пример формы для входа: batch=1, channels=3, height=640, width=640
 
-    int deviceID = 0;             
+    int deviceID = 2;             
     int apiID = cv::CAP_ANY;     
 
     cap.open(deviceID, apiID);
@@ -90,31 +90,33 @@ int main(int, char**)
 
         auto output = session.Run({}, input_names, &input, 1, output_names, 1);
 
-
-
         shape = output[0].GetTensorTypeAndShapeInfo().GetShape();
 
         int num_boxes = output.size();
         auto ptr = output[0].GetTensorData<float>();
 
-        for (int i = 0; i < num_boxes; ++i) {
-        float* data = output[i].GetTensorMutableData<float>();
 
-        if (data != nullptr) {
-            int x = data[0];
-            int y = data[1];
-            int x_max = data[2];
-            int y_max = data[3];
-            int c = data[5];
-        
-            auto name = string(class_names[c]) + ":" + to_string(data[4] * 100) + "%";
+        for (size_t i = 0; i < shape[1]; i++){
+            
+            float* data = output[0].GetTensorMutableData<float>() + i * 6;
 
-            cv::rectangle(frame, cv::Point(x, y), cv::Point(x_max, y_max), cv::Scalar(255, 0, 0), 2);
-            cv::putText(frame, name, cv::Point(x, y), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
+                    if (data != nullptr) {
+                        int x = data[0];
+                        int y = data[1];
+                        int x_max = data[2];
+                        int y_max = data[3];
+                        int c = data[5];
+                    
+                        auto name = string(class_names[c]) + ":" + to_string(data[4]);
+                        if (data[4] > 0.3) {
+                        cv::rectangle(frame, cv::Point(x, y), cv::Point(x_max, y_max), cv::Scalar(255, 0, 0), 2);
+                        cv::putText(frame, name, cv::Point(x, y), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
 
+                        } 
+                        
 
         } 
-    }
+        }
 
         cout << "Shape of frame: " << frame.rows << " x " << frame.cols << endl;
 
