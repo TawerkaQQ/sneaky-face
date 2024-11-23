@@ -3,6 +3,7 @@
 #include "videowindow.h"
 #include <QFileDialog>
 #include <QDebug>
+#include <QWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

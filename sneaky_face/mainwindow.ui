@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>490</y>
-      <width>141</width>
-      <height>51</height>
+      <y>320</y>
+      <width>201</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">
@@ -30,14 +30,63 @@
    <widget class="QPushButton" name="pushButton2">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>490</y>
-      <width>141</width>
-      <height>51</height>
+      <x>10</x>
+      <y>450</y>
+      <width>201</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">
-     <string>Обработка видео</string>
+     <string>INPUT</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>470</y>
+      <width>86</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>450</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Класс</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>480</y>
+      <width>160</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>450</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Блюр</string>
     </property>
    </widget>
   </widget>
