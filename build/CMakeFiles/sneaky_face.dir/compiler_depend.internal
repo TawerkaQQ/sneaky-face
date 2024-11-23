@@ -835,6 +835,8 @@ CMakeFiles/sneaky_face.dir/sneaky_face/main.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QImage
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h
 
 CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o
  /home/tawerka/temep/sneaky-face/sneaky_face/mainwindow.cpp
@@ -1329,6 +1331,8 @@ CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QImage
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h
  /home/tawerka/temep/sneaky-face/build/sneaky_face_autogen/include/ui_mainwindow.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
@@ -1358,6 +1362,8 @@ CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDebug
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
 
 CMakeFiles/sneaky_face.dir/sneaky_face/videowindow.cpp.o
  /home/tawerka/temep/sneaky-face/sneaky_face/videowindow.cpp
@@ -2367,6 +2373,8 @@ CMakeFiles/sneaky_face.dir/sneaky_face_autogen/mocs_compilation.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QImage
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h
  /home/tawerka/temep/sneaky-face/build/sneaky_face_autogen/YCQRFH7OLI/moc_videowindow.cpp
  /home/tawerka/temep/sneaky-face/sneaky_face/videowindow.h
 

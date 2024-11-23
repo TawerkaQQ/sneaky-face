@@ -832,7 +832,9 @@ CMakeFiles/sneaky_face.dir/sneaky_face/main.cpp.o: ../sneaky_face/main.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabbar.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QImage \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h
 
 CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o: ../sneaky_face/mainwindow.cpp \
   /usr/include/stdc-predef.h \
@@ -1326,6 +1328,8 @@ CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o: ../sneaky_face/mainwind
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QImage \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h \
   sneaky_face_autogen/include/ui_mainwindow.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
@@ -1354,7 +1358,9 @@ CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o: ../sneaky_face/mainwind
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QDebug \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
 
 CMakeFiles/sneaky_face.dir/sneaky_face/videowindow.cpp.o: ../sneaky_face/videowindow.cpp \
   /usr/include/stdc-predef.h \
@@ -2362,6 +2368,8 @@ CMakeFiles/sneaky_face.dir/sneaky_face_autogen/mocs_compilation.cpp.o: sneaky_fa
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QImage \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h \
   sneaky_face_autogen/YCQRFH7OLI/moc_videowindow.cpp \
   ../sneaky_face/videowindow.h
 
@@ -2371,6 +2379,8 @@ sneaky_face_autogen/YCQRFH7OLI/moc_videowindow.cpp:
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h:
 
 ../sneaky_face/videowindow.cpp:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QSlider:
 
@@ -2385,6 +2395,8 @@ sneaky_face_autogen/YCQRFH7OLI/moc_videowindow.cpp:
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h:
 
 sneaky_face_autogen/include/ui_mainwindow.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/QImage:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h:
 
