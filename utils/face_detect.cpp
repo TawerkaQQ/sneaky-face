@@ -1,3 +1,14 @@
+#include <vector>
+#include <string>
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <onnxruntime_cxx_api.h>
+#include <opencv2/dnn/dnn.hpp>
+#include <iostream>
+#include <stdio.h>
+
 const char *class_names[] = {
     "face",         "bicycle",    "car",           "motorcycle",    "airplane",     "bus",           "train",
     "truck",          "boat",       "traffic light", "fire hydrant",  "stop sign",    "parking meter", "bench",
@@ -12,29 +23,26 @@ const char *class_names[] = {
     "toaster",        "sink",       "refrigerator",  "book",          "clock",        "vase",          "scissors",
     "teddy bear",     "hair drier", "toothbrush"};
 
-
-#include <opencv2/core.hpp>
-#include <opencv2/videoio.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>
-#include <onnxruntime_cxx_api.h>
-#include <opencv2/dnn/dnn.hpp>
-#include <iostream>
-#include <stdio.h>
+std::vector<std::string> getClassName() {
+    std::vector<std::string> classes;
+    int classes_count = sizeof(class_names) / sizeof(class_names[0]);
+    for (int i = 0; i < classes_count; i++) {
+        classes.push_back(class_names[i]);
+    }
+    return classes;
+}
 
 using namespace cv;
 using namespace std;
 using Array = vector<float>;
 using Shape = vector<long>;
 
-string model_path = "../models/yolov10n-face.onnx";
-string path_video = "/home/tawerka/Projects/sneaky-face/example_data/human_faces_2.mp4";
-string output_video_path = "/home/tawerka/Projects/sneaky-face/output_video.mp4";
+
 
 // false == RTP, true == Video
 bool type_video = false;
 
-int main(int, char**)
+int process(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, vector<int> blur_rate) // string model_path, string path_to_video, string path_to_save, array<string> class_nums, float blur_rate
 {
 
     Mat frame;
@@ -57,7 +65,7 @@ int main(int, char**)
         cap.open(deviceID, apiID); 
     }
     else {
-        cap.open(path_video); 
+        cap.open(path_to_video); 
     }
 
 
@@ -66,7 +74,7 @@ int main(int, char**)
         return -1;
     }
     double fps = cap.get(CAP_PROP_FPS);
-    writer.open(output_video_path, codec, fps, size);
+    writer.open(path_to_save, codec, fps, size);
 
     cout << "Start grabbing" << endl
         << "Press any key to terminate" << endl;
@@ -132,7 +140,7 @@ int main(int, char**)
                         int c = data[5];
                     
                         auto name = string(class_names[c]) + ":" + to_string(data[4]);
-                        if (data[4] > 0.55) {
+                        if (data[4] > 0.15) {
                             Rect roi(x, y, x_max - x, y_max - y);
             
                             roi = roi & Rect(0, 0, frame.cols, frame.rows);
@@ -142,17 +150,11 @@ int main(int, char**)
                                 Mat roi_img = frame(roi);
                                 
                                 Mat blurred;
-                                GaussianBlur(roi_img, blurred, Size(45, 45), 0);
+                                GaussianBlur(roi_img, blurred, Size(45, 45), 30);
                                 
 
                                 blurred.copyTo(frame(roi));
                             }
-
-        
-                            
-                        // draw rectangle & put label
-                        //cv::rectangle(frame, cv::Point(x, y), cv::Point(x_max, y_max), cv::Scalar(0, 0, 0), 0);
-                        //cv::putText(frame, name, cv::Point(x, y), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
                         } 
         } 
         }
