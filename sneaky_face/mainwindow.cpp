@@ -17,6 +17,11 @@ MainWindow::MainWindow(QWidget *parent)
         ui->comboBox->addItem(QString::fromStdString(class_name));
     }
 
+    std::vector<std::string> models = getModelName();
+    for (const std::string& model_name : models) {
+        ui->comboBox_2->addItem(QString::fromStdString(model_name));
+    }
+
     //WATCH_VIDEO BUTTON
     connect(ui->pushButton2, &QPushButton::clicked, this, &MainWindow::openVideoWindow);
 }
@@ -28,6 +33,62 @@ MainWindow::~MainWindow() {
 
 void MainWindow::processVideoButton() {
     qDebug() << "processVideoButton pushed";
+    // выбор видео для обработки
+    QString videoFile = QFileDialog::getOpenFileName(
+                this,
+                tr("Выбор видео для обработки"),
+                QString(),
+                tr("Video Files (*.mp4 *.avi *.mkv)")
+    );
+    if (videoFile.isEmpty()){
+        qDebug() << "Не выбрано видео";
+        return;
+    }
+
+    // выбор модели
+    QString modelName = QFileDialog::getOpenFileName(
+                this,
+                tr("Выбор модели для обработки"),
+                QString(),
+                tr("ONNX Models (*.onnx)")
+    );
+    if (modelName.isEmpty()){
+        qDebug() << "Не выбрана модель";
+        return;
+    }
+
+    //выбор директории для выгрузки обработанного видео
+    QString outputFilePath = QFileDialog::getSaveFileName(
+            this,
+            tr("Save Processed Video"),
+            QString(),
+            tr("Video Files (*.mp4 *.avi *.mkv)")
+        );
+        if (outputFilePath.isEmpty()) {
+            qDebug() << "Не указано место сохранения";
+            return;
+        }
+
+    //установка класса из комбобокса
+    QString className = ui->comboBox->currentText();
+    if (className.isEmpty()){
+        qDebug() << "Не выбран класс";
+        return;
+    }
+
+    qDebug() << "видео" << videoFile;
+    qDebug() << "аут" << outputFilePath;
+    qDebug() << "модель" << modelName;
+    qDebug() << "класс" << className;
+
+    int blurRate = 100;
+
+    classesVector.clear();
+    blurVector.clear();
+    classesVector.push_back(className.toStdString());
+    blurVector.push_back(blurRate);
+
+    bool success = process(modelName.toStdString(), videoFile.toStdString(), outputFilePath.toStdString(), classesVector, blurVector);
 }
 
 void MainWindow::openVideoWindow() {

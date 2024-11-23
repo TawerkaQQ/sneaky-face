@@ -7,6 +7,7 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    check_model.cpp \
     face_detect.cpp \
     main.cpp \
     mainwindow.cpp \

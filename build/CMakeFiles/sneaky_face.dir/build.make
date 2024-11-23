@@ -169,6 +169,7 @@ sneaky_face: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.2.0
 sneaky_face: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.2.0
 sneaky_face: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
 sneaky_face: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
+sneaky_face: /usr/local/onnxruntime/lib/libonnxruntime.so
 sneaky_face: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.12.8
 sneaky_face: /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so.5.12.8
 sneaky_face: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.12.8

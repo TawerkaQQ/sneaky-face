@@ -23,6 +23,19 @@ const char *class_names[] = {
     "toaster",        "sink",       "refrigerator",  "book",          "clock",        "vase",          "scissors",
     "teddy bear",     "hair drier", "toothbrush"};
 
+const char *model_names[] = {
+    "yolov8n-face.onnx"
+};
+
+std::vector<std::string> getModelName() {
+    std::vector<std::string> models;
+    int models_count = sizeof(model_names) / sizeof(model_names[0]);
+    for (int i = 0; i < models_count; i++){
+        models.push_back(model_names[i]);
+    }
+    return models;
+}
+
 std::vector<std::string> getClassName() {
     std::vector<std::string> classes;
     int classes_count = sizeof(class_names) / sizeof(class_names[0]);
@@ -40,7 +53,7 @@ using Shape = vector<long>;
 
 
 // false == RTP, true == Video
-bool type_video = false;
+bool type_video = true;
 
 int process(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, vector<int> blur_rate) // string model_path, string path_to_video, string path_to_save, array<string> class_nums, float blur_rate
 {

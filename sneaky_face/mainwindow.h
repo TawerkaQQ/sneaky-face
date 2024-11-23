@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include "videowindow.h"
+#include "face_detect.h"
 #include <QMainWindow>
 #include <QComboBox>
+#include <vector>
+#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +27,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     VideoWindow *videoWindow;
+    std::vector<std::string> classesVector;
+    std::vector<int> blurVector;
 };
 
 #endif // MAINWINDOW_H
