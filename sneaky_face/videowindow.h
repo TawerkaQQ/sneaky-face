@@ -1,31 +1,26 @@
 #ifndef VIDEOWINDOW_H
 #define VIDEOWINDOW_H
 
-#include <QWidget>
-#include <QMediaPlayer>
-#include <QVideoWidget>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QFileDialog>
+#include <QDialog>
+#include <QCloseEvent>
 
-class VideoWindow : public QWidget {
+namespace Ui {
+class VideoWindow;
+}
+
+class VideoWindow : public QDialog
+{
     Q_OBJECT
 
 public:
-    VideoWindow(const QString &filePath, QWidget *parent = nullptr);
+    explicit VideoWindow(QWidget *parent = nullptr);
     ~VideoWindow();
 
-private  slots:
-    void play();
-    void pause();
-    void openNewVideo();
+protected:
+    void closeEvent(QCloseEvent *event) override;
 
 private:
-    QMediaPlayer *player;
-    QVideoWidget *videoWidget;
-    QPushButton *playButton;
-    QPushButton *pauseButton;
-    QPushButton *openButton;
+    Ui::VideoWindow *ui;
 };
 
 #endif // VIDEOWINDOW_H
