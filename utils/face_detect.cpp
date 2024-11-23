@@ -27,31 +27,46 @@ using namespace std;
 using Array = vector<float>;
 using Shape = vector<long>;
 
-
 string model_path = "../models/yolov10n-face.onnx";
+string path_video = "/home/tawerka/Projects/sneaky-face/example_data/human_faces_2.mp4";
+string output_video_path = "/home/tawerka/Projects/sneaky-face/output_video.mp4";
 
+// false == RTP, true == Video
+bool type_video = false;
 
 int main(int, char**)
 {
 
     Mat frame;
     VideoCapture cap;
-
     bool use_cuda = false;
     Size size(640,640);
 
     Array input_data(640 * 640 * 3);  // Пример: массив для 640x640 RGB изображения
     Shape input_shape = {1, 3, 640, 640}; // Пример формы для входа: batch=1, channels=3, height=640, width=640
+    int apiID = cv::CAP_ANY;
 
-    int deviceID = 2;             
-    int apiID = cv::CAP_ANY;     
+    VideoWriter writer;
+    int codec = VideoWriter::fourcc('a', 'v', 'c', '1');  
+    
+    int total_frames = cap.get(CAP_PROP_FRAME_COUNT);
+    cout << "Start processing video with " << total_frames << " frames" << endl;
 
-    cap.open(deviceID, apiID);
+    if (type_video) {
+        int deviceID = 0;      
+        cap.open(deviceID, apiID); 
+    }
+    else {
+        cap.open(path_video); 
+    }
+
 
     if (!cap.isOpened()) {
         cerr << "ERROR! Unable to open camera\n";
         return -1;
     }
+    double fps = cap.get(CAP_PROP_FPS);
+    writer.open(output_video_path, codec, fps, size);
 
     cout << "Start grabbing" << endl
         << "Press any key to terminate" << endl;
@@ -64,11 +79,20 @@ int main(int, char**)
     auto memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
     const char *input_names[] = {"images"};
     const char *output_names[] = {"output0"};
+    int frame_count = 0;
+
+
+    bool success = true;
 
     for (;;)
     {
 
-        cap.read(frame);
+        success = cap.read(frame);
+            
+        if (!success || frame.empty()) {
+            cout << "End of video reached or error reading frame" << endl;
+            break;  
+        }
 
         cv::resize(frame, frame, size);
 
@@ -108,29 +132,58 @@ int main(int, char**)
                         int c = data[5];
                     
                         auto name = string(class_names[c]) + ":" + to_string(data[4]);
-                        if (data[4] > 0.3) {
-                        cv::rectangle(frame, cv::Point(x, y), cv::Point(x_max, y_max), cv::Scalar(255, 0, 0), 2);
-                        cv::putText(frame, name, cv::Point(x, y), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
+                        if (data[4] > 0.55) {
+                            Rect roi(x, y, x_max - x, y_max - y);
+            
+                            roi = roi & Rect(0, 0, frame.cols, frame.rows);
+                            
+                            if (roi.width > 0 && roi.height > 0) {
 
+                                Mat roi_img = frame(roi);
+                                
+                                Mat blurred;
+                                GaussianBlur(roi_img, blurred, Size(45, 45), 0);
+                                
+
+                                blurred.copyTo(frame(roi));
+                            }
+
+        
+                            
+                        // draw rectangle & put label
+                        //cv::rectangle(frame, cv::Point(x, y), cv::Point(x_max, y_max), cv::Scalar(0, 0, 0), 0);
+                        //cv::putText(frame, name, cv::Point(x, y), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
                         } 
-                        
-
         } 
         }
 
         cout << "Shape of frame: " << frame.rows << " x " << frame.cols << endl;
 
+        writer.write(frame);
+        frame_count++;
+
+        if (frame_count % 15 == 0) { // Показываем прогресс каждые 30 кадров
+            cout << "Processed " << frame_count << " of " << total_frames << " frames" << endl;
+        }
+
+
         if (frame.empty()) {
             cerr << "ERROR! blank frame grabbed\n";
             break;
         }
-
-
+        
         imshow("Live", frame);
         if (waitKey(5) >= 0)
             break;
+        
+
     }
 
+    cout << "Write complete !" << endl;
+    cap.release();
+    writer.release();
+    destroyAllWindows();
+    
     return 0;
 }
 
