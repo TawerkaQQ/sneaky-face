@@ -8,6 +8,11 @@
 #include <vector>
 #include <string>
 #include <QImage>
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <stdlib.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,12 +30,16 @@ private slots:
     void processVideoButton();
     void openVideoWindow();
     void processRTPVideoButton();
+    void stop_all();
+    void resume();
 
 private:
     Ui::MainWindow *ui;
     VideoWindow *videoWindow;
     std::vector<std::string> classesVector;
     std::vector<int> blurVector;
+    bool isStoped = false;
+
 
     void updateVideoLabel(const QImage& frame);
     int process_video(std::string model_path, std::string path_to_video, std::string path_to_save, std::vector<std::string> class_nums, int blur_rate, int& progress_bar);

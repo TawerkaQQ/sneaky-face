@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     // INPUT BUTTON
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::processVideoButton);
 
+
     std::vector<std::string> classes = getClassName();
     for (const std::string& class_name : classes) {
         ui->comboBox->addItem(QString::fromStdString(class_name));
@@ -41,10 +42,15 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     // WATCH_VIDEO BUTTON
-    connect(ui->pushButton2, &QPushButton::clicked, this, &MainWindow::openVideoWindow);
+//    connect(ui->pushButton2, &QPushButton::clicked, this, &MainWindow::openVideoWindow);
 
     // RTP_VIDEO_BUTTON
     connect(ui->pushButton_2, &QPushButton::clicked, this, &MainWindow::processRTPVideoButton);
+    // STOP_BUTTON
+    connect(ui->stop_button, &QPushButton::clicked, this, &MainWindow::stop_all);
+
+    // RESUME_BUTTON
+    connect(ui->resumeButton, &QPushButton::clicked, this, &MainWindow::resume);
 }
 
 MainWindow::~MainWindow() {
@@ -188,12 +194,13 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
     VideoCapture cap;
     bool use_cuda = false;
     Size size(640,640);
+    Size size2(320,320);
 
     Array input_data(640 * 640 * 3);
     Shape input_shape = {1, 3, 640, 640};
     int apiID = cv::CAP_ANY;
 
-    VideoWriter writer;
+     VideoWriter writer;
     int codec = VideoWriter::fourcc('a', 'v', 'c', '1');
 
     cap.open(path_to_video);
@@ -224,7 +231,8 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
     for (;;) {
         success = cap.read(frame);
 
-        if (!success || frame.empty()) {
+
+        if (!success || frame.empty() || isStoped) {
             cout << "Processed " << total_frames << " of " << total_frames << " frames 100%" << endl;
             progress_bar = 100;
             break;
@@ -292,7 +300,7 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
             cout << "Processed " << frame_count << " of " << total_frames << " frames " << progress_bar << "%" << endl;
         }
 
-        // Преобразуем кадр в QImage и обновляем QLabel
+        cv::resize(frame, frame, size2); 
         QImage qimg(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_BGR888);
         updateVideoLabel(qimg);
 
@@ -317,6 +325,7 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
     VideoCapture cap;
     bool use_cuda = false;
     Size size(640,640);
+    Size size2(480,480);
 
     Array input_data(640 * 640 * 3);
     Shape input_shape = {1, 3, 640, 640};
@@ -354,7 +363,7 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
     for (;;) {
         success = cap.read(frame);
 
-        if (!success || frame.empty()) {
+        if (!success || frame.empty()  || isStoped) {
             cout << "Processed " << total_frames << " of " << total_frames << " frames 100%" << endl;
             break;
         }
@@ -415,7 +424,7 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
         writer.write(frame);
         frame_count++;
 
-        // Преобразуем кадр в QImage и обновляем QLabel
+        cv::resize(frame, frame, size2); 
         QImage qimg(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_BGR888);
         updateVideoLabel(qimg);
 
@@ -435,5 +444,15 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
     return 0;
 }
 
+
+void MainWindow::stop_all(){
+    isStoped = true;
+    ui->label_4->clear();
+}
+
+void MainWindow::resume(){
+    isStoped = false;
+
+}
 
 
