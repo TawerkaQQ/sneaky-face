@@ -1340,6 +1340,12 @@ CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o: ../sneaky_face/mainwind
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QComboBox \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemview.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qitemselectionmodel.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMenuBar \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h \
@@ -2394,6 +2400,10 @@ sneaky_face_autogen/YCQRFH7OLI/moc_videowindow.cpp:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemview.h:
+
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h:
 
 sneaky_face_autogen/include/ui_mainwindow.h:
@@ -2504,6 +2514,8 @@ sneaky_face_autogen/include/ui_mainwindow.h:
 
 /usr/include/c++/11/variant:
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h:
+
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qlocale.h:
@@ -2590,6 +2602,8 @@ sneaky_face_autogen/include/ui_mainwindow.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qflags.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h:
+
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qlogging.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qtypeinfo.h:
@@ -2637,6 +2651,8 @@ sneaky_face_autogen/include/ui_mainwindow.h:
 /usr/include/c++/11/bits/stream_iterator.h:
 
 /opt/onnxruntime/include/onnxruntime_float16.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget:
 
 /usr/include/opencv4/opencv2/imgproc/segmentation.hpp:
 
@@ -2979,6 +2995,8 @@ sneaky_face_autogen/include/ui_mainwindow.h:
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
 
 /usr/include/c++/11/bits/functexcept.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qitemselectionmodel.h:
 
 /usr/include/c++/11/bits/concept_check.h:
 

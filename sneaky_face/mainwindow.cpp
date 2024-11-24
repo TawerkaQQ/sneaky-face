@@ -27,13 +27,17 @@ MainWindow::MainWindow(QWidget *parent)
     , videoWindow(nullptr)
 {
     ui->setupUi(this);
+
+    ui->progressBar->setValue(0);
+
+
     // INPUT BUTTON
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::processVideoButton);
 
 
     std::vector<std::string> classes = getClassName();
     for (const std::string& class_name : classes) {
-        ui->comboBox->addItem(QString::fromStdString(class_name));
+        ui->listWidget->addItem(QString::fromStdString(class_name));
     }
 
     std::vector<std::string> models = getModelName();
@@ -54,6 +58,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // BLUR_SLIDER
     connect(ui->horizontalSlider, &QSlider::valueChanged, this, &MainWindow::blur_slider);
+
+    ui->listWidget->setSelectionMode(QAbstractItemView::MultiSelection);
+
 
 }
 
@@ -101,31 +108,40 @@ void MainWindow::processVideoButton() {
             return;
         }
 
-    QString className = ui->comboBox->currentText();
-    if (className.isEmpty()){
-        qDebug() << "Не выбран класс";
-        return;
+    QList<QListWidgetItem*> selectedItems = ui->listWidget->selectedItems();
+
+    std::vector<std::string> selectClasses;
+
+    for (QListWidgetItem* item : selectedItems) {
+        selectClasses.push_back(item->text().toStdString());
     }
+
+
 
     qDebug() << "видео" << videoFile;
     qDebug() << "аут" << outputFilePath;
     qDebug() << "модель" << modelName;
-    qDebug() << "класс" << className;
+//    qDebug() << "класс" << className;
 
-    int blurRate = 100;
+    int blurRate = blurValue;
 
     classesVector.clear();
     blurVector.clear();
-    classesVector.push_back(className.toStdString());
+//    classesVector.push_back(className.toStdString());
     blurVector.push_back(blurRate);
 
     string model_path = "../models/yolov10n-face.onnx";
     vector<string> class_nums = {"face", "bicycle","car", "motorcycle", "airplane", "bus", "train"};
 
-    int blur_rate = 30;
+    int blur_rate = blurValue;
     int progress_bar = 0;
 
-    process_video(model_path, videoFile.toStdString(), outputFilePath.toStdString(), class_nums, blur_rate, progress_bar);
+    for (const std::string& item : selectClasses) {
+            qDebug() << QString::fromStdString(item);
+        }
+
+
+    process_video(model_path, videoFile.toStdString(), outputFilePath.toStdString(), selectClasses, blur_rate, progress_bar);
 }
 
 
@@ -155,22 +171,30 @@ void MainWindow::processRTPVideoButton() {
             return;
         }
 
-    QString className = ui->comboBox->currentText();
-    if (className.isEmpty()){
-        qDebug() << "Не выбран класс";
-        return;
+//    QString className = ui->comboBox->currentText();
+//    if (className.isEmpty()){
+//        qDebug() << "Не выбран класс";
+//        return;
+//    }
+
+    QList<QListWidgetItem*> selectedItems = ui->listWidget->selectedItems();
+
+    std::vector<std::string> selectClasses;
+
+    for (QListWidgetItem* item : selectedItems) {
+        selectClasses.push_back(item->text().toStdString());
     }
 
     qDebug() << "аут" << outputFilePath;
     qDebug() << "модель" << modelName;
-    qDebug() << "класс" << className;
+//    qDebug() << "класс" << className;
 
     int blurRate = blurValue;
 
 
     classesVector.clear();
     blurVector.clear();
-    classesVector.push_back(className.toStdString());
+//    classesVector.push_back(className.toStdString());
     blurVector.push_back(blurRate);
 
     string model_path = "../models/yolov10n-face.onnx";
@@ -178,7 +202,7 @@ void MainWindow::processRTPVideoButton() {
 
     int blur_rate = blurValue;
 
-    process_rtp(model_path, outputFilePath.toStdString(), class_nums, blur_rate);
+    process_rtp(model_path, outputFilePath.toStdString(), selectClasses, blur_rate);
 }
 
 void MainWindow::openVideoWindow() {
@@ -240,8 +264,7 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
 
 
         if (!success || frame.empty() || isStoped) {
-            cout << "Processed " << total_frames << " of " << total_frames << " frames 100%" << endl;
-            progress_bar = 100;
+            ui->progressBar->setValue(100);
             break;
         }
 
@@ -281,7 +304,7 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
                 int c = data[5];
 
                 auto name = string(class_names[c]) + ":" + to_string(data[4]);
-                if (data[4] > 0.15) {
+                if (data[4] > 0.1) {
                     Rect roi(x, y, x_max - x, y_max - y);
 
                     roi = roi & Rect(0, 0, frame.cols, frame.rows);
@@ -303,7 +326,8 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
 
         if (frame_count % 15 == 0) {
             progress_bar = (frame_count * 100) / total_frames;
-
+            thisProgressBar = progress_bar+1;
+            ui->progressBar->setValue(thisProgressBar);
             cout << "Processed " << frame_count << " of " << total_frames << " frames " << progress_bar << "%" << endl;
         }
 
@@ -371,7 +395,7 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
         success = cap.read(frame);
 
         if (!success || frame.empty()  || isStoped) {
-            cout << "Processed " << total_frames << " of " << total_frames << " frames 100%" << endl;
+            ui->progressBar->setValue(100);
             break;
         }
 
@@ -411,7 +435,7 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
                 int c = data[5];
 
                 auto name = string(class_names[c]) + ":" + to_string(data[4]);
-                if (data[4] > 0.15) {
+                if (data[4] > 0.1) {
                     Rect roi(x, y, x_max - x, y_max - y);
 
                     roi = roi & Rect(0, 0, frame.cols, frame.rows);
@@ -455,6 +479,7 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
 void MainWindow::stop_all(){
     isStoped = true;
     ui->label_4->clear();
+    ui->progressBar->setValue(0);
 }
 
 void MainWindow::resume(){
@@ -466,6 +491,8 @@ void MainWindow::blur_slider(int value) {
     ui->label_5->setText(QString::number(value));
     blurValue = value;
 }
+
+
 
 
 

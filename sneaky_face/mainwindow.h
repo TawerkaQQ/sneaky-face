@@ -40,6 +40,8 @@ private:
     std::vector<int> blurVector;
     bool isStoped = false;
     int blurValue;
+    int thisProgressBar = 0;
+//    vector<string>;
 
 
     void updateVideoLabel(const QImage& frame);

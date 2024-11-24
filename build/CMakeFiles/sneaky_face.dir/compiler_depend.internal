@@ -1343,6 +1343,12 @@ CMakeFiles/sneaky_face.dir/sneaky_face/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QComboBox
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemview.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qitemselectionmodel.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMenuBar
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h
