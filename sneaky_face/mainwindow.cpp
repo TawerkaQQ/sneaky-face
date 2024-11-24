@@ -51,7 +51,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     // RESUME_BUTTON
     connect(ui->resumeButton, &QPushButton::clicked, this, &MainWindow::resume);
+
+    // BLUR_SLIDER
+    connect(ui->horizontalSlider, &QSlider::valueChanged, this, &MainWindow::blur_slider);
+
 }
+
 
 MainWindow::~MainWindow() {
     delete ui;
@@ -123,7 +128,7 @@ void MainWindow::processVideoButton() {
     process_video(model_path, videoFile.toStdString(), outputFilePath.toStdString(), class_nums, blur_rate, progress_bar);
 }
 
-// RTP VIDEO_PROCESS
+
 void MainWindow::processRTPVideoButton() {
     qDebug() << "processVideoButton pushed";
 
@@ -160,7 +165,7 @@ void MainWindow::processRTPVideoButton() {
     qDebug() << "модель" << modelName;
     qDebug() << "класс" << className;
 
-    int blurRate = 100;
+    int blurRate = blurValue;
 
 
     classesVector.clear();
@@ -171,7 +176,7 @@ void MainWindow::processRTPVideoButton() {
     string model_path = "../models/yolov10n-face.onnx";
     vector<string> class_nums = {"face", "bicycle","car", "motorcycle", "airplane", "bus", "train"};
 
-    int blur_rate = 30;
+    int blur_rate = blurValue;
 
     process_rtp(model_path, outputFilePath.toStdString(), class_nums, blur_rate);
 }
@@ -189,6 +194,8 @@ void MainWindow::updateVideoLabel(const QImage& frame) {
     ui->label_4->setPixmap(QPixmap::fromImage(frame));
 }
 
+
+//PROCESS VIDEO
 int MainWindow::process_video(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, int blur_rate, int& progress_bar) {
     Mat frame;
     VideoCapture cap;
@@ -300,7 +307,7 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
             cout << "Processed " << frame_count << " of " << total_frames << " frames " << progress_bar << "%" << endl;
         }
 
-        cv::resize(frame, frame, size2); 
+        cv::resize(frame, frame, size2);
         QImage qimg(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_BGR888);
         updateVideoLabel(qimg);
 
@@ -319,7 +326,7 @@ int MainWindow::process_video(string model_path, string path_to_video, string pa
 
     return 0;
 }
-
+//PROCESS RTP
 int MainWindow::process_rtp(string model_path, string path_to_save, vector<string> class_nums, int blur_rate) {
     Mat frame;
     VideoCapture cap;
@@ -424,7 +431,7 @@ int MainWindow::process_rtp(string model_path, string path_to_save, vector<strin
         writer.write(frame);
         frame_count++;
 
-        cv::resize(frame, frame, size2); 
+        cv::resize(frame, frame, size2);
         QImage qimg(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_BGR888);
         updateVideoLabel(qimg);
 
@@ -454,5 +461,11 @@ void MainWindow::resume(){
     isStoped = false;
 
 }
+
+void MainWindow::blur_slider(int value) {
+    ui->label_5->setText(QString::number(value));
+    blurValue = value;
+}
+
 
 

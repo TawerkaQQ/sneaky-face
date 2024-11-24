@@ -13,7 +13,6 @@
 #include <opencv2/highgui.hpp>
 #include <stdlib.h>
 
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -32,6 +31,7 @@ private slots:
     void processRTPVideoButton();
     void stop_all();
     void resume();
+    void blur_slider(int value);
 
 private:
     Ui::MainWindow *ui;
@@ -39,6 +39,7 @@ private:
     std::vector<std::string> classesVector;
     std::vector<int> blurVector;
     bool isStoped = false;
+    int blurValue;
 
 
     void updateVideoLabel(const QImage& frame);

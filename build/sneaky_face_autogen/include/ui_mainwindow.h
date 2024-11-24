@@ -39,6 +39,7 @@ public:
     QLabel *label_4;
     QPushButton *stop_button;
     QPushButton *resumeButton;
+    QLabel *label_5;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -54,23 +55,23 @@ public:
         pushButton->setGeometry(QRect(20, 410, 121, 111));
         comboBox = new QComboBox(centralwidget);
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
-        comboBox->setGeometry(QRect(420, 440, 86, 25));
+        comboBox->setGeometry(QRect(410, 430, 86, 25));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(420, 420, 67, 17));
+        label->setGeometry(QRect(410, 410, 67, 17));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(520, 420, 67, 17));
+        label_2->setGeometry(QRect(520, 410, 67, 17));
         comboBox_2 = new QComboBox(centralwidget);
         comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
-        comboBox_2->setGeometry(QRect(520, 440, 86, 25));
+        comboBox_2->setGeometry(QRect(520, 430, 86, 25));
         horizontalSlider = new QSlider(centralwidget);
         horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setGeometry(QRect(450, 510, 160, 16));
+        horizontalSlider->setGeometry(QRect(430, 500, 160, 16));
         horizontalSlider->setOrientation(Qt::Horizontal);
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(490, 490, 81, 17));
+        label_3->setGeometry(QRect(470, 480, 81, 17));
         progressBar = new QProgressBar(centralwidget);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
         progressBar->setGeometry(QRect(200, 500, 171, 23));
@@ -80,13 +81,16 @@ public:
         pushButton_2->setGeometry(QRect(660, 410, 121, 111));
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setGeometry(QRect(330, 20, 431, 281));
+        label_4->setGeometry(QRect(150, 30, 431, 281));
         stop_button = new QPushButton(centralwidget);
         stop_button->setObjectName(QString::fromUtf8("stop_button"));
-        stop_button->setGeometry(QRect(200, 350, 91, 41));
+        stop_button->setGeometry(QRect(190, 410, 91, 41));
         resumeButton = new QPushButton(centralwidget);
         resumeButton->setObjectName(QString::fromUtf8("resumeButton"));
-        resumeButton->setGeometry(QRect(310, 350, 91, 41));
+        resumeButton->setGeometry(QRect(310, 410, 91, 41));
+        label_5 = new QLabel(centralwidget);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setGeometry(QRect(600, 480, 51, 51));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -109,9 +113,10 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "\320\234\320\276\320\264\320\265\320\273\321\214", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "\320\240\320\260\320\267\320\274\321\213\321\202\320\270\320\265", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "RTP", nullptr));
-        label_4->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        label_4->setText(QString());
         stop_button->setText(QCoreApplication::translate("MainWindow", "stop", nullptr));
-        resumeButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        resumeButton->setText(QCoreApplication::translate("MainWindow", "resume", nullptr));
+        label_5->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
     } // retranslateUi
 
 };
