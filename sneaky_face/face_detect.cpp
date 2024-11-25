@@ -8,6 +8,10 @@
 #include <opencv2/dnn/dnn.hpp>
 #include <iostream>
 #include <stdio.h>
+#include <QDebug>
+#include <QString>
+
+using namespace std;
 
 const char *class_names[] = { "person", "bicycle", "car",  "motorcycle", "airplane",
                               "bus", "train", "truck", "boat", "traffic light", "fire hydrant", "stop sign",
@@ -53,8 +57,9 @@ using Array = vector<float>;
 using Shape = vector<long>;
 
 
-int process_video(string model_path, string path_to_video, string path_to_save, vector<string> class_nums, int blur_rate, int& progress_bar) // string model_path, string path_to_video, string path_to_save, array<string> class_nums, float blur_rate
+int process_video(String model_path, String path_to_video, String path_to_save, vector<string> class_nums, int blur_rate, int& progress_bar) // string model_path, string path_to_video, string path_to_save, array<string> class_nums, float blur_rate
 {
+
 
     Mat frame;
     VideoCapture cap;
@@ -83,9 +88,12 @@ int process_video(string model_path, string path_to_video, string path_to_save, 
         << "Press any key to terminate" << endl;
 
 
-    Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "YOLOv8n");
+    Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "YOLO11n");
+    cout << "Start grabbing 2" << endl;
     Ort::SessionOptions options;
+     cout << "Start grabbing 3" << endl;
     Ort::Session session(env, model_path.c_str(), options);
+    cout << "Start grabbing 4" << endl;
 
     auto memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
     const char *input_names[] = {"images"};
@@ -147,21 +155,21 @@ int process_video(string model_path, string path_to_video, string path_to_save, 
                         auto name = string(class_names[c]) + ":" + to_string(data[4]);
                         if (data[4] > 0.1) {
                             Rect roi(x, y, x_max - x, y_max - y);
-            
+
                             roi = roi & Rect(0, 0, frame.cols, frame.rows);
-                            
+
                             if (roi.width > 0 && roi.height > 0) {
 
                                 Mat roi_img = frame(roi);
-                                
+
                                 Mat blurred;
                                 GaussianBlur(roi_img, blurred, Size(45, 45), blur_rate);
-                                
+
 
                                 blurred.copyTo(frame(roi));
                             }
-                        } 
-        } 
+                        }
+        }
         }
 
         writer.write(frame);

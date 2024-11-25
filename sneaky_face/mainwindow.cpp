@@ -40,11 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
         ui->listWidget->addItem(QString::fromStdString(class_name));
     }
 
-    std::vector<std::string> models = getModelName();
-    for (const std::string& model_name : models) {
-        ui->comboBox_2->addItem(QString::fromStdString(model_name));
-    }
-
     // WATCH_VIDEO BUTTON
 //    connect(ui->pushButton2, &QPushButton::clicked, this, &MainWindow::openVideoWindow);
 
@@ -78,7 +73,7 @@ void MainWindow::processVideoButton() {
                 this,
                 tr("Выбор видео для обработки"),
                 QString(),
-                tr("Video Files (*.mp4 *.avi *.mkv)")
+                tr("Video Files (*.mp4 *.avi *.mkv *.wmv *.mov *.mpg)")
     );
     if (videoFile.isEmpty()){
         qDebug() << "Не выбрано видео";
@@ -101,7 +96,7 @@ void MainWindow::processVideoButton() {
             this,
             tr("Save Processed Video"),
             QString(),
-            tr("Video Files (*.mp4 *.avi *.mkv)")
+            tr("Video Files (*.mp4 *.avi *.mkv *.wmv *.mov *.mpg)")
         );
         if (outputFilePath.isEmpty()) {
             qDebug() << "Не указано место сохранения";
@@ -121,17 +116,12 @@ void MainWindow::processVideoButton() {
     qDebug() << "видео" << videoFile;
     qDebug() << "аут" << outputFilePath;
     qDebug() << "модель" << modelName;
-//    qDebug() << "класс" << className;
 
     int blurRate = blurValue;
 
     classesVector.clear();
     blurVector.clear();
-//    classesVector.push_back(className.toStdString());
     blurVector.push_back(blurRate);
-
-    string model_path = "../models/yolov10n-face.onnx";
-    vector<string> class_nums = {"face", "bicycle","car", "motorcycle", "airplane", "bus", "train"};
 
     int blur_rate = blurValue;
     int progress_bar = 0;
@@ -140,8 +130,7 @@ void MainWindow::processVideoButton() {
             qDebug() << QString::fromStdString(item);
         }
 
-
-    process_video(model_path, videoFile.toStdString(), outputFilePath.toStdString(), selectClasses, blur_rate, progress_bar);
+    process_video(modelName.toStdString(), videoFile.toStdString(),  outputFilePath.toStdString(), selectClasses, blur_rate, progress_bar);
 }
 
 
@@ -164,18 +153,12 @@ void MainWindow::processRTPVideoButton() {
             this,
             tr("Save Processed Video"),
             QString(),
-            tr("Video Files (*.mp4 *.avi *.mkv)")
+            tr("Video Files (*.mp4 *.avi *.mkv *.wmv *.mov *.mpg)")
         );
         if (outputFilePath.isEmpty()) {
             qDebug() << "Не указано место сохранения";
             return;
         }
-
-//    QString className = ui->comboBox->currentText();
-//    if (className.isEmpty()){
-//        qDebug() << "Не выбран класс";
-//        return;
-//    }
 
     QList<QListWidgetItem*> selectedItems = ui->listWidget->selectedItems();
 
@@ -187,22 +170,17 @@ void MainWindow::processRTPVideoButton() {
 
     qDebug() << "аут" << outputFilePath;
     qDebug() << "модель" << modelName;
-//    qDebug() << "класс" << className;
 
     int blurRate = blurValue;
 
 
     classesVector.clear();
     blurVector.clear();
-//    classesVector.push_back(className.toStdString());
     blurVector.push_back(blurRate);
-
-    string model_path = "../models/yolov10n-face.onnx";
-    vector<string> class_nums = {"face", "bicycle","car", "motorcycle", "airplane", "bus", "train"};
 
     int blur_rate = blurValue;
 
-    process_rtp(model_path, outputFilePath.toStdString(), selectClasses, blur_rate);
+    process_rtp(modelName.toStdString(), outputFilePath.toStdString(), selectClasses, blur_rate);
 }
 
 void MainWindow::openVideoWindow() {
