@@ -1,50 +1,60 @@
-﻿cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.15)
 
-# Название проекта и версия
 project(sneaky_face)
 
-# Установка стандарта C++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Пути до Qt и OpenCV
-set(Qt5_DIR "C:/Qt/Qt5.12.8/5.12.8/msvc2017_64/lib/cmake/Qt5")
-set(OpenCV_DIR "C:/opencv/build/x64/vc16/lib")
+# Find Qt5 components
+find_package(Qt5 COMPONENTS Widgets Multimedia MultimediaWidgets REQUIRED)
 
-# Включение функций автоматической обработки Qt
+set(OpenCV_DIR "/usr/include/opencv4/")
+find_package(OpenCV REQUIRED)
+
+set(ONNXRUNTIME_DIR "/opt/onnxruntime/")
+
+find_library(ONNXRUNTIME_LIB onnxruntime HINTS ${ONNXRUNTIME_DIR}/lib)
+
+
+include_directories(${ONNXRUNTIME_DIR}/include)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+link_libraries(${OpenCV_LIBRARIES} ${ONNXRUNTIME_LIB})
+
+# Enable automatic MOC and UIC
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
-# Подключение Qt
-find_package(Qt5 COMPONENTS Widgets Multimedia MultimediaWidgets REQUIRED)
-
-# Подключение OpenCV
-find_package(OpenCV REQUIRED)
-
+# List of source files
 set(SOURCES
-    src/main.cpp
-    src/mainwindow.cpp
-    src/videowindow.cpp
-    src/mainwindow.ui
+    sneaky_face/main.cpp
+    sneaky_face/mainwindow.cpp
+    sneaky_face/videowindow.cpp
+    sneaky_face/face_detect.cpp
+    sneaky_face/mainwindow.ui
+    sneaky_face/videowindow.ui
 )
 
 set(HEADERS
-    src/mainwindow.h
-    src/videowindow.h
+    sneaky_face/mainwindow.h
+    sneaky_face/videowindow.h
+    sneaky_face/face_detect.h
 )
 
-# Создание исполняемого файла
+# Add executable
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
-# Линковка библиотек
+# Link libraries
 target_link_libraries(${PROJECT_NAME}
     Qt5::Widgets
     Qt5::Multimedia
     Qt5::MultimediaWidgets
     ${OpenCV_LIBS}
+    ${ONNXRUNTIME_LIB}
 )
 
-# Включение директорий
+# Include OpenCV directories
 target_include_directories(${PROJECT_NAME}
     PRIVATE ${OpenCV_INCLUDE_DIRS}
+    PRIVATE ${ONNXRUNTIME_DIR}/include
 )
